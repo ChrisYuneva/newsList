@@ -1,10 +1,9 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { View, SplitLayout, SplitCol, ScreenSpinner } from '@vkontakte/vkui';
 import { useActiveVkuiLocation } from '@vkontakte/vk-mini-apps-router';
-import { Home } from './panels';
 import { DEFAULT_VIEW_PANELS } from './routes';
-import { News } from './panels/News';
 import { useAppSelector } from './store/hooks';
+import { Home, News } from '../pages';
 
 export const App = () => {
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } = useActiveVkuiLocation();

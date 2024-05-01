@@ -10,10 +10,10 @@ import {
 } from '@vkontakte/vkui';
 import { useParams, useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Icon16Replay, Icon24Back, Icon24ExternalLinkOutline } from '@vkontakte/icons';
-import { newsSlice } from '../store/newsSlice';
-import { useAppDispatch, useAppSelector } from '../store/hooks';
-import { getCommentsList, getNews } from '../api';
-import { Comments } from '../components/comments/comments';
+import { Comments } from '../../widgets/comments/comments';
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
+import { newsSlice } from '../../app/store/newsSlice';
+import { getCommentsList, getNews } from './api';
 
 export const News: FC<NavIdProps> = ({ id }) => {
   const params = useParams<'id'>();

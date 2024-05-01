@@ -1,9 +1,8 @@
 import { FC, useCallback, useEffect } from 'react';
-import { useAppDispatch } from '../../store/hooks';
-import { newsSlice } from '../../store/newsSlice';
-import { getCommentsList } from '../../api';
 import { Text } from '@vkontakte/vkui';
-import { Story } from '../../api/types';
+import { useAppDispatch } from '../../app/store/hooks';
+import { Story, newsSlice } from '../../app/store/newsSlice';
+import { getCommentsList } from '../../pages/news/api';
 
 interface CommentsProps {
   id: number;

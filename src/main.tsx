@@ -1,9 +1,9 @@
 import { createRoot } from 'react-dom/client';
 import vkBridge from '@vkontakte/vk-bridge';
-import { AppConfig } from './AppConfig.tsx';
 
-import { store } from './store/store.ts';
 import { Provider } from 'react-redux';
+import { AppConfig } from './app/AppConfig.tsx';
+import { store } from './app/store/store.ts';
 
 
 vkBridge.send('VKWebAppInit');
@@ -15,5 +15,5 @@ createRoot(document.getElementById('root')!).render(
 );
 
 if (import.meta.env.MODE === 'development') {
-  import('./eruda.ts');
+  import('./app/eruda.ts');
 }
