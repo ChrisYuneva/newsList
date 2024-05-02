@@ -1,0 +1,10 @@
+.btn {
+    width: fit-content;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    padding: 16px !important;
+    gap: 8px;
+}

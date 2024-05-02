@@ -1,8 +1,10 @@
 import { FC, useCallback, useEffect } from 'react';
-import { Text } from '@vkontakte/vkui';
+import { Button, Card, Group, InfoRow, SimpleCell, Text } from '@vkontakte/vkui';
 import { useAppDispatch } from '../../app/store/hooks';
 import { Story, newsSlice } from '../../app/store/newsSlice';
 import { getCommentsList } from '../../pages/news/api';
+
+import styles from './styles.module.css';
 
 interface CommentsProps {
   id: number;
@@ -38,10 +40,23 @@ export const Comments: FC<CommentsProps> = ({ id, kidsIds, isParent, comments })
   const renderTreeComments = (comments?: Story[]) => (
     <div>
       {comments?.map((comment) => (
-        <div style={ { marginLeft: '8px' } }>
-            <Text onClick={() => getKidsCommentsKids(comment.id, comment?.kids ?? [])}>{comment.text}</Text>
+        <Group className={styles.group} key={comment.id} mode='plain'>
+          {
+            comment.text && (
+              <SimpleCell className={styles.cell}>
+                <InfoRow header={comment.by}>
+                  <Text>{comment.text}</Text>
+                </InfoRow>
+                {
+                  comment?.kids && (
+                    <Button mode='link' onClick={() => getKidsCommentsKids(comment.id, comment?.kids ?? [])} >Ответы</Button>
+                  )
+                }
+              </SimpleCell>
+            ) 
+          }
             { renderTreeComments(comment.comments) }
-        </div>
+        </Group>
       ))}
     </div>
   )

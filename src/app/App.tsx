@@ -5,6 +5,8 @@ import { DEFAULT_VIEW_PANELS } from './routes';
 import { useAppSelector } from './store/hooks';
 import { Home, News } from '../pages';
 
+import styles from './styles.module.css';
+
 export const App = () => {
   const { panel: activePanel = DEFAULT_VIEW_PANELS.HOME } = useActiveVkuiLocation();
   const [popout, setPopout] = useState<ReactNode | null>(<ScreenSpinner size="large" />);
@@ -22,7 +24,7 @@ export const App = () => {
   return (
     <SplitLayout popout={popout}>
       <SplitCol>
-        <View activePanel={activePanel}>
+        <View activePanel={activePanel} className={styles.panel}>
           <Home id="home" />
           <News id="news" />
         </View>

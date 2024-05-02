@@ -14,6 +14,8 @@ import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { newsSlice } from '../../app/store/newsSlice';
 import { getNewsList } from './api';
 
+import styles from './styles.module.css';
+
 export const Home: FC<NavIdProps> = ({ id }) => {
   const routeNavigator = useRouteNavigator();
 
@@ -44,12 +46,11 @@ export const Home: FC<NavIdProps> = ({ id }) => {
   return (
     <Panel id={id}>
       <PanelHeader>Главная</PanelHeader>
-      
       <Group>
-      <CellButton onClick={getNews} before={<Icon16Replay />} mode="primary">
-        Обновить список новостей
-      </CellButton>
         <CardGrid size='l'>
+          <CellButton onClick={getNews} before={<Icon16Replay />} mode="primary" className={styles.btn}>
+            Обновить список новостей
+          </CellButton>
           {
             news.map((item) => (
               <NewsCard 

@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-
 export interface Story {
     by?: string,
     descendants?: number,
@@ -22,7 +21,6 @@ export enum StoryTypes {
     STORY = 'story',
     COMMENT = 'comment',
 }
-
 export interface NewsState {
     news: Story[],
     isLoading: boolean,
@@ -48,6 +46,7 @@ const findCommentsById = (arr: Story[], findId: number): Story | undefined => {
             }
         }
     }
+    
     return undefined;
 };
 

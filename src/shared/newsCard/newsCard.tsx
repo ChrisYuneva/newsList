@@ -1,5 +1,7 @@
-import { Caption, Card, Footnote, Title } from '@vkontakte/vkui';
+import { Card, InfoRow, Title } from '@vkontakte/vkui';
 import { FC } from 'react';
+
+import styles from './styles.module.css';
 
 interface NewsCardProps {
     title?: string,
@@ -10,17 +12,14 @@ interface NewsCardProps {
 }
 
 export const NewsCard: FC<NewsCardProps> = ({ title, score, by, time, onClick }) => {
-
   return (
-    <Card onClick={onClick}>
-      <Title level='2' style={{ margin: 16 }}>
+    <Card onClick={onClick} className={styles.card}>
+      <Title level='2'>
         {title}
       </Title>
-      <Footnote>{score}</Footnote>
-      <Footnote>{by}</Footnote>
-      <Caption level='3' style={{ marginBottom: 16 }}>
-        {new Date(time).toLocaleDateString('ru-Ru')}
-      </Caption>
+      <InfoRow header="Автор">{by}</InfoRow>
+      <InfoRow header="Рейтинг">{score}</InfoRow>
+      <InfoRow header="Дата публикации">{new Date(time).toLocaleDateString('ru-Ru')}</InfoRow>
     </Card>
   );
 };
