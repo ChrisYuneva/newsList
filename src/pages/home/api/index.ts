@@ -6,6 +6,6 @@ export const getNewsList = async (): Promise<Story[]> => {
     const idList = idData.slice(0,100);
     const newsListResponse = await Promise.all(idList.map((idNews) => fetch(`https://hacker-news.firebaseio.com/v0/item/${idNews}.json?print=pretty`)));
     const newsList = await Promise.all((newsListResponse.map((news) => news.json())));
-    
+
     return newsList;
 }

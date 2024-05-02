@@ -24,13 +24,11 @@ export enum StoryTypes {
 export interface NewsState {
     news: Story[],
     isLoading: boolean,
-    error: string
 }
 
 const initialState: NewsState = {
     news: [],
     isLoading: false,
-    error: ''
 };
 
 const findCommentsById = (arr: Story[], findId: number): Story | undefined => {
@@ -74,7 +72,7 @@ export const newsSlice = createSlice({
             }
         }
         state.isLoading = false;
-    }
+    },
   },
 });
 
