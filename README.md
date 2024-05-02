@@ -2,7 +2,7 @@
 
 App id: 51915451
 
-Ссылка на приложение: [https://prod-app51915451-3aa2b07c3c2e.pages-ac.vk-apps.com/index.html](https://prod-app51915451-3aa2b07c3c2e.pages-ac.vk-apps.com/index.html)
+Ссылка на приложение: [https://prod-app51915451-d624000ff7ba.pages-ac.vk-apps.com/index.html](https://prod-app51915451-d624000ff7ba.pages-ac.vk-apps.com/index.html)
 
 ### Используемые технологии: 
  - React v.18.2.0;
