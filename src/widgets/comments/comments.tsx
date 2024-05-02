@@ -13,16 +13,17 @@ interface CommentsProps {
   comments?: Story[];
 }
 
+const { getComments } = newsSlice.actions;
+
 export const Comments: FC<CommentsProps> = ({ id, kidsIds, isParent, comments }) => {
   const dispatch = useAppDispatch();
-  const { getComments } = newsSlice.actions;
 
   const getCommentsKids = useCallback(async(id: number, kidsIds: number[]) => {
     if (kidsIds.length && !comments?.length) {
         const comments = await getCommentsList(kidsIds);
         dispatch(getComments({ id, comments }));
       }
-  }, [dispatch, getComments]);
+  }, [comments?.length, dispatch]);
 
   const getKidsCommentsKids = async (id: number, kidsIds: number[]) => {
     if (kidsIds.length) {
@@ -39,33 +40,38 @@ export const Comments: FC<CommentsProps> = ({ id, kidsIds, isParent, comments })
 
   const renderTreeComments = (comments?: Story[]) => (
     <div>
-      {comments?.map((comment) => (
-        <Group className={styles.group} key={comment.id} mode='plain'>
-          {
-            comment.text && (
-              <SimpleCell className={styles.cell}>
-                <InfoRow header={comment.by}>
-                  <Text>{comment.text}</Text>
-                </InfoRow>
-                {
-                  comment?.kids && (
-                    <Button mode='link' onClick={() => getKidsCommentsKids(comment.id, comment?.kids ?? [])}>Ответы</Button>
-                  )
-                }
-              </SimpleCell>
-            ) 
-          }
-            { renderTreeComments(comment.comments) }
-        </Group>
-      ))}
+      {
+        comments?.map((comment) => (
+          <Group className={ styles.group } key={ comment.id } mode='plain'>
+            {
+              comment.text && (
+                <SimpleCell className={ styles.cell }>
+                  <InfoRow header={ comment.by }>
+                    <Text>{ comment.text }</Text>
+                  </InfoRow>
+                  {
+                    comment?.kids && (
+                      <Button
+                        mode='link'
+                        onClick={ () => getKidsCommentsKids(comment.id, comment?.kids ?? []) }
+                      >
+                        Ответы
+                      </Button>
+                    )
+                  }
+                </SimpleCell>
+              ) 
+            }
+              { renderTreeComments(comment.comments) }
+          </Group>
+        ))
+      }
     </div>
   )
 
   return (
-    <div>
-        {
-            renderTreeComments(comments)
-        }
-    </div>
+    <>
+        { renderTreeComments(comments) }
+    </>
   );
 };

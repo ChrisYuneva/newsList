@@ -16,18 +16,19 @@ import { getNewsList } from './api';
 
 import styles from './styles.module.css';
 
+const { loading, get } = newsSlice.actions;
+
 export const Home: FC<NavIdProps> = ({ id }) => {
   const routeNavigator = useRouteNavigator();
 
   const dispatch = useAppDispatch();
   const { news } = useAppSelector(store => store.news);
-  const { loading, get } = newsSlice.actions;
 
   const getNews = useCallback(async() => {
     dispatch(loading());
     const news = await getNewsList();
     dispatch(get(news));
-  }, [dispatch, get, loading])
+  }, [dispatch])
 
   useEffect(() => {
     if(news.length < 2) {
@@ -43,22 +44,27 @@ export const Home: FC<NavIdProps> = ({ id }) => {
   }, [getNews, news.length]);
 
   return (
-    <Panel id={id}>
+    <Panel id={ id }>
       <PanelHeader>Главная</PanelHeader>
       <Group>
         <CardGrid size='l'>
-          <CellButton onClick={getNews} before={<Icon16Replay />} mode="primary" className={styles.btn}>
+          <CellButton
+            onClick={ getNews }
+            before={ <Icon16Replay /> }
+            mode="primary"
+            className={ styles.btn }
+          >
             Обновить список новостей
           </CellButton>
           {
             news.map((item) => (
               <NewsCard 
-                title={item.title} 
-                score={item.score} 
-                by={item.by} 
-                time={item.time} 
-                onClick={() => routeNavigator.push(`/news/${item.id}`)}
-                key={item.id} 
+                title={ item.title ?? '' } 
+                score={ item.score ?? 0 } 
+                by={ item.by ?? '' } 
+                time={ item.time ?? 0 } 
+                onClick={ () => routeNavigator.push(`/news/${item.id}`) }
+                key={ item.id}  
               />
             ))
           }

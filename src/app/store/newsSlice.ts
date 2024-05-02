@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 export interface Story {
+    id: number,
     by?: string,
     descendants?: number,
-    id: number,
     kids?: number[],
     score?: number,
-    time: number,
+    time?: number,
     title?: string,
     type: StoryTypes,
     url?: string,
@@ -57,7 +57,7 @@ export const newsSlice = createSlice({
         state.isLoading = true;
     },
     get(state, action: PayloadAction<Story[]>) {
-        state.news = action.payload.sort((a, b) => b.time - a.time);
+        state.news = action.payload.sort((a, b) => (b.time ?? 0) - (a.time ?? 0));
         state.isLoading = false;
     },
     getComments(state, action: PayloadAction<{id: number, comments: Story[]}>) {

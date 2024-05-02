@@ -18,10 +18,10 @@ import { Comments } from '../../widgets/comments/comments';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { newsSlice } from '../../app/store/newsSlice';
 import { getCommentsList, getNews } from './api';
-
-import styles from './styles.module.css';
 import { getTime } from '../../app/utils/dateUtils';
 const { getComments, get, loading } = newsSlice.actions;
+
+import styles from './styles.module.css';
 
 export const News: FC<NavIdProps> = ({ id }) => {
   const params = useParams<'id'>();
@@ -51,50 +51,56 @@ export const News: FC<NavIdProps> = ({ id }) => {
   }, [currentNew?.comments?.length, currentNew?.kids?.length, getCurrentComments, getNewById]);
 
   return (
-    <Panel id={id}>
-      <Group className={styles.group}>
+    <Panel id={ id }>
+      <Group className={ styles.group }>
         <CellButton
-          onClick={() => routeNavigator.push('/')}
-          before={<Icon24Back />}
+          onClick={ () => routeNavigator.push('/') }
+          before={ <Icon24Back /> }
           mode='primary'
-          className={styles.btn}
+          className={ styles.btn }
         >
           Вернуться
         </CellButton>
         <Title level='1' style={{ marginBottom: 16 }}>
-          {currentNew?.title}
+          { currentNew?.title }
         </Title>
-        <InfoRow header='Автор'>{currentNew?.by}</InfoRow>
+        <InfoRow header='Автор'>{ currentNew?.by }</InfoRow>
         <InfoRow header='Дата публикации'>
-          {`${getTime(currentNew?.time ?? 0).date} ${getTime(currentNew?.time ?? 0).time}`}
+          { `${ getTime(currentNew?.time ?? 0).date } ${ getTime(currentNew?.time ?? 0).time }` }
         </InfoRow>
-        {currentNew?.url && (
-          <InfoRow header='Ссылка на новость'>
-            <Link href={`${currentNew?.url}`} target='_blank'>
-              {currentNew?.url}{' '}
-              <Icon24ExternalLinkOutline width={16} height={16} />
-            </Link>
-          </InfoRow>
-        )}
-        {currentNew?.kids?.length && (
-          <InfoRow header='Комментарии'>{currentNew?.kids?.length}</InfoRow>
-        )}
+        {
+          currentNew?.url && (
+            <InfoRow header='Ссылка на новость'>
+              <Link href={currentNew?.url} target='_blank'>
+                {currentNew?.url}
+                <Icon24ExternalLinkOutline width={ 16 } height={ 16 } />
+              </Link>
+            </InfoRow>
+          )
+        }
+        {
+          currentNew?.kids?.length && (
+            <InfoRow header='Комментарии'>{ currentNew?.kids?.length }</InfoRow>
+          )
+        }
         <CellButton
-          onClick={getCurrentComments}
-          before={<Icon16Replay />}
+          onClick={ getCurrentComments }
+          before={ <Icon16Replay /> }
           mode='primary'
-          className={styles.btn}
+          className={ styles.btn }
         >
           Обновить список комментариев
         </CellButton>
-        {currentNew?.comments && (
-          <Comments
-            id={currentNew?.id ?? 0}
-            kidsIds={currentNew?.kids ?? []}
-            comments={currentNew?.comments}
-            isParent={true}
-          />
-        )}
+        {
+          currentNew?.comments && (
+            <Comments
+              id={ currentNew?.id ?? 0 }
+              kidsIds={ currentNew?.kids ?? [] }
+              comments={ currentNew?.comments }
+              isParent={ true }
+            />
+          )
+        }
       </Group>
     </Panel>
   );
