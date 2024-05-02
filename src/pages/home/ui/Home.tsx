@@ -1,7 +1,6 @@
 import { FC, useCallback, useEffect } from 'react';
 import {
   Panel,
-  PanelHeader,
   Group,
   NavIdProps,
   CardGrid,
@@ -9,10 +8,10 @@ import {
 } from '@vkontakte/vkui';
 import { useRouteNavigator } from '@vkontakte/vk-mini-apps-router';
 import { Icon16Replay } from '@vkontakte/icons';
-import { NewsCard } from '../../shared/newsCard/newsCard';
-import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { newsSlice } from '../../app/store/newsSlice';
-import { getNewsList } from './api';
+import { NewsCard } from '../../../shared/newsCard/ui/newsCard';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { newsSlice } from '../../../app/store/newsSlice';
+import { getNewsList } from '../api';
 
 import styles from './styles.module.css';
 
@@ -45,7 +44,6 @@ export const Home: FC<NavIdProps> = ({ id }) => {
 
   return (
     <Panel id={ id }>
-      <PanelHeader>Главная</PanelHeader>
       <Group>
         <CardGrid size='l'>
           <CellButton

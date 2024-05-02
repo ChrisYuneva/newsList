@@ -2,7 +2,7 @@ import { Card, InfoRow, Title } from '@vkontakte/vkui';
 import { FC } from 'react';
 
 import styles from './styles.module.css';
-import { getTime } from '../../app/utils/dateUtils';
+import { getTime } from '../../../app/utils/dateUtils';
 
 interface NewsCardProps {
     title: string,

@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect } from 'react';
 import { Button, Group, InfoRow, SimpleCell, Text } from '@vkontakte/vkui';
-import { useAppDispatch } from '../../app/store/hooks';
-import { Story, newsSlice } from '../../app/store/newsSlice';
-import { getCommentsList } from '../../pages/news/api';
+import { useAppDispatch } from '../../../app/store/hooks';
+import { Story, newsSlice } from '../../../app/store/newsSlice';
+import { getCommentsList } from '../../../pages/news/api';
 
 import styles from './styles.module.css';
 

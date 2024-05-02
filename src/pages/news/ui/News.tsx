@@ -14,11 +14,11 @@ import {
   Icon24Back,
   Icon24ExternalLinkOutline,
 } from '@vkontakte/icons';
-import { Comments } from '../../widgets/comments/comments';
-import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { newsSlice } from '../../app/store/newsSlice';
-import { getCommentsList, getNews } from './api';
-import { getTime } from '../../app/utils/dateUtils';
+import { Comments } from '../../../widgets/comments/ui/comments';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { newsSlice } from '../../../app/store/newsSlice';
+import { getCommentsList, getNews } from '../api';
+import { getTime } from '../../../app/utils/dateUtils';
 const { getComments, get, loading } = newsSlice.actions;
 
 import styles from './styles.module.css';
