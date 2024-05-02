@@ -31,7 +31,6 @@ export const Home: FC<NavIdProps> = ({ id }) => {
 
   useEffect(() => {
     if(news.length < 2) {
-      console.log('first')
       getNews();
     }
     const timer = setInterval(() => {

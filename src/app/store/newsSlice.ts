@@ -33,7 +33,6 @@ const initialState: NewsState = {
     error: ''
 };
 
-
 const findCommentsById = (arr: Story[], findId: number): Story | undefined => {
     for(const obj of arr) {
         if (obj.id === findId) {
@@ -58,7 +57,7 @@ export const newsSlice = createSlice({
         state.isLoading = true;
     },
     get(state, action: PayloadAction<Story[]>) {
-        state.news = action.payload;
+        state.news = action.payload.sort((a, b) => b.time - a.time);
         state.isLoading = false;
     },
     getComments(state, action: PayloadAction<{id: number, comments: Story[]}>) {
@@ -74,18 +73,6 @@ export const newsSlice = createSlice({
                 }
             }
         }
-        // const currentNews = findCommentsById(state.news, action.payload.id);
-        // if(currentNews) {
-        //     currentNews.comments = action.payload.comments;
-        // }
-        // state.news = state.news.map((item) => {
-        //     if(item.id === action.payload.id) {
-        //         item.comments = action.payload.comments;
-        //     }
-
-        //     return item;
-        // })
-
         state.isLoading = false;
     }
   },

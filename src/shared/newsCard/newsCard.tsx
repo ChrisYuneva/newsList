@@ -2,6 +2,7 @@ import { Card, InfoRow, Title } from '@vkontakte/vkui';
 import { FC } from 'react';
 
 import styles from './styles.module.css';
+import { getTime } from '../../app/utils/dateUtils';
 
 interface NewsCardProps {
     title?: string,
@@ -19,7 +20,7 @@ export const NewsCard: FC<NewsCardProps> = ({ title, score, by, time, onClick })
       </Title>
       <InfoRow header="Автор">{by}</InfoRow>
       <InfoRow header="Рейтинг">{score}</InfoRow>
-      <InfoRow header="Дата публикации">{new Date(time).toLocaleDateString('ru-Ru')}</InfoRow>
+      <InfoRow header="Дата публикации">{`${getTime(time).date} ${getTime(time).time}`}</InfoRow>
     </Card>
   );
 };

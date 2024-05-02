@@ -20,6 +20,7 @@ import { newsSlice } from '../../app/store/newsSlice';
 import { getCommentsList, getNews } from './api';
 
 import styles from './styles.module.css';
+import { getTime } from '../../app/utils/dateUtils';
 const { getComments, get, loading } = newsSlice.actions;
 
 export const News: FC<NavIdProps> = ({ id }) => {
@@ -30,16 +31,9 @@ export const News: FC<NavIdProps> = ({ id }) => {
   const currentNew = news.find((item) => item.id === Number(params?.id));
 
   const getCurrentComments = useCallback(async () => {
-    if (currentNew?.kids?.length && !currentNew.comments?.length) {
       const comments = await getCommentsList(currentNew?.kids ?? []);
       dispatch(getComments({ id: currentNew?.id ?? 0, comments }));
-    }
-  }, [
-    currentNew?.comments?.length,
-    currentNew?.id,
-    currentNew?.kids,
-    dispatch,
-  ]);
+  }, [currentNew?.id, currentNew?.kids, dispatch]);
 
   const getNewById = useCallback(async () => {
     if (!currentNew && !news.length) {
@@ -51,8 +45,10 @@ export const News: FC<NavIdProps> = ({ id }) => {
 
   useEffect(() => {
     getNewById();
-    getCurrentComments();
-  }, [getCurrentComments, getNewById]);
+    if (!!currentNew?.kids?.length && !currentNew.comments?.length) {
+      getCurrentComments();
+    }
+  }, [currentNew?.comments?.length, currentNew?.kids?.length, getCurrentComments, getNewById]);
 
   return (
     <Panel id={id}>
@@ -70,7 +66,7 @@ export const News: FC<NavIdProps> = ({ id }) => {
         </Title>
         <InfoRow header='Автор'>{currentNew?.by}</InfoRow>
         <InfoRow header='Дата публикации'>
-          {new Date(currentNew?.time ?? 0).toLocaleDateString('ru-Ru')}
+          {`${getTime(currentNew?.time ?? 0).date} ${getTime(currentNew?.time ?? 0).time}`}
         </InfoRow>
         {currentNew?.url && (
           <InfoRow header='Ссылка на новость'>

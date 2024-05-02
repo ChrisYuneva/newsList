@@ -1,5 +1,5 @@
 import { FC, useCallback, useEffect } from 'react';
-import { Button, Card, Group, InfoRow, SimpleCell, Text } from '@vkontakte/vkui';
+import { Button, Group, InfoRow, SimpleCell, Text } from '@vkontakte/vkui';
 import { useAppDispatch } from '../../app/store/hooks';
 import { Story, newsSlice } from '../../app/store/newsSlice';
 import { getCommentsList } from '../../pages/news/api';
@@ -18,7 +18,7 @@ export const Comments: FC<CommentsProps> = ({ id, kidsIds, isParent, comments })
   const { getComments } = newsSlice.actions;
 
   const getCommentsKids = useCallback(async(id: number, kidsIds: number[]) => {
-    if (kidsIds.length) {
+    if (kidsIds.length && !comments?.length) {
         const comments = await getCommentsList(kidsIds);
         dispatch(getComments({ id, comments }));
       }
@@ -49,7 +49,7 @@ export const Comments: FC<CommentsProps> = ({ id, kidsIds, isParent, comments })
                 </InfoRow>
                 {
                   comment?.kids && (
-                    <Button mode='link' onClick={() => getKidsCommentsKids(comment.id, comment?.kids ?? [])} >Ответы</Button>
+                    <Button mode='link' onClick={() => getKidsCommentsKids(comment.id, comment?.kids ?? [])}>Ответы</Button>
                   )
                 }
               </SimpleCell>
